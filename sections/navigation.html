@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File System Navigation - Linux Academy</title>
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="../index.html">
+        <i class="fab fa-linux me-2"></i>Linux Academy
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="intro.html">Intro</a></li>
+          <li class="nav-item"><a class="nav-link active" href="navigation.html">Navigation</a></li>
+          <li class="nav-item"><a class="nav-link" href="users.html">Users</a></li>
+          <li class="nav-item"><a class="nav-link" href="scripts.html">Scripts</a></li>
+          <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="container mt-5 pt-5">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+        <li class="breadcrumb-item"><a href="intro.html">Introduction</a></li>
+        <li class="breadcrumb-item active" aria-current="page">File System Navigation</li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- Progress Bar -->
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <!-- Header Section -->
+  <section class="content-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <h1 class="text-gradient"><i class="fas fa-folder-open text-primary me-2"></i>File System Navigation</h1>
+          <p class="lead">Master essential Linux commands and understand the file system structure. Learn to navigate directories, manage files, and use the terminal effectively.</p>
+          
+          <!-- Progress Indicator -->
+          <div class="progress mb-4" style="height: 8px;">
+            <div class="progress-bar bg-success" role="progressbar" style="width: 40%">Module 2 of 5</div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="sidebar-card">
+            <h4><i class="fas fa-clock me-2"></i>Module Info</h4>
+            <ul class="tips-list">
+              <li><strong>Duration:</strong> 45-60 minutes</li>
+              <li><strong>Difficulty:</strong> Beginner</li>
+              <li><strong>Prerequisites:</strong> Introduction to Linux</li>
+            </ul>
+            <div class="mt-3">
+              <a href="navigation-quiz.html" class="btn btn-primary btn-sm w-100">
+                <i class="fas fa-question-circle me-2"></i>Take Quiz
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- File System Structure Section -->
+  <section class="content-section bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="content-card">
+            <h2><i class="fas fa-sitemap text-primary me-2"></i>Linux File System Structure</h2>
+            <p>The Linux file system follows a hierarchical structure with a single root directory. Understanding this structure is essential for effective navigation and file management.</p>
+            
+            <h3 class="mt-4">Root Directory (/)</h3>
+            <p>Everything in Linux starts from the root directory, represented by a forward slash (/). All other directories branch out from here.</p>
+            
+            <div class="file-tree">
+              <div class="tree-item">
+                <i class="fas fa-folder text-warning me-2"></i>/ (root)
+                <div class="tree-children">
+                  <div class="tree-item">
+                    <i class="fas fa-folder text-warning me-2"></i>/bin (essential binaries)
+                    <div class="tree-children">
+                      <div class="tree-item"><i class="fas fa-file text-info me-2"></i>ls, cp, mv, rm</div>
+                      <div class="tree-item"><i class="fas fa-file text-info me-2"></i>cat, echo, grep</div>
+                    </div>
+                  </div>
+                  <div class="tree-item">
+                    <i class="fas fa-folder text-warning me-2"></i>/home (user directories)
+                    <div class="tree-children">
+                      <div class="tree-item"><i class="fas fa-folder text-warning me-2"></i>/home/user1</div>
+                      <div class="tree-item"><i class="fas fa-folder text-warning me-2"></i>/home/user2</div>
+                    </div>
+                  </div>
+                  <div class="tree-item">
+                    <i class="fas fa-folder text-warning me-2"></i>/etc (configuration files)
+                    <div class="tree-children">
+                      <div class="tree-item"><i class="fas fa-file text-info me-2"></i>passwd, hosts</div>
+                      <div class="tree-item"><i class="fas fa-file text-info me-2"></i>network, ssh</div>
+                    </div>
+                  </div>
+                  <div class="tree-item">
+                    <i class="fas fa-folder text-warning me-2"></i>/var (variable data)
+                    <div class="tree-children">
+                      <div class="tree-item"><i class="fas fa-folder text-warning me-2"></i>/var/log (log files)</div>
+                      <div class="tree-item"><i class="fas fa-folder text-warning me-2"></i>/var/www (web files)</div>
+                    </div>
+                  </div>
+                  <div class="tree-item">
+                    <i class="fas fa-folder text-warning me-2"></i>/usr (user programs)
+                    <div class="tree-children">
+                      <div class="tree-item"><i class="fas fa-folder text-warning me-2"></i>/usr/bin (user binaries)</div>
+                      <div class="tree-item"><i class="fas fa-folder text-warning me-2"></i>/usr/local (local software)</div>
+                    </div>
+                  </div>
+                  <div class="tree-item">
+                    <i class="fas fa-folder text-warning me-2"></i>/tmp (temporary files)
+                  </div>
+                  <div class="tree-item">
+                    <i class="fas fa-folder text-warning me-2"></i>/dev (device files)
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h3 class="mt-4"><i class="fas fa-info-circle text-info me-2"></i>Important Directories Explained</h3>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="directory-info">
+                  <h5><i class="fas fa-home text-primary me-2"></i>/home</h5>
+                  <p>Contains user home directories. Each user has their own folder here.</p>
+                </div>
+                <div class="directory-info">
+                  <h5><i class="fas fa-cogs text-warning me-2"></i>/etc</h5>
+                  <p>System configuration files. Contains settings for applications and services.</p>
+                </div>
+                <div class="directory-info">
+                  <h5><i class="fas fa-code text-success me-2"></i>/bin</h5>
+                  <p>Essential system binaries. Contains basic commands needed for system operation.</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="directory-info">
+                  <h5><i class="fas fa-database text-info me-2"></i>/var</h5>
+                  <p>Variable data that changes during system operation (logs, databases, etc.).</p>
+                </div>
+                <div class="directory-info">
+                  <h5><i class="fas fa-users text-primary me-2"></i>/usr</h5>
+                  <p>User programs and data. Contains most user-installed software.</p>
+                </div>
+                <div class="directory-info">
+                  <h5><i class="fas fa-clock text-warning me-2"></i>/tmp</h5>
+                  <p>Temporary files. Contents are usually cleared on reboot.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="sidebar-card">
+            <h4><i class="fas fa-lightbulb me-2"></i>File System Tips</h4>
+            <ul class="tips-list">
+              <li>Everything is a file in Linux</li>
+              <li>Case-sensitive file names</li>
+              <li>Use forward slashes (/)</li>
+              <li>Hidden files start with dot (.)</li>
+              <li>No file extensions required</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Essential Commands Section -->
+  <section class="content-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="content-card">
+            <h2><i class="fas fa-terminal text-primary me-2"></i>Essential Commands</h2>
+            <p>These are the fundamental commands you'll use every day in Linux. Master these and you'll be able to navigate and manage files effectively.</p>
+            
+            <div class="command-grid">
+              <div class="command-card shadow-hover">
+                <code>pwd</code>
+                <p><strong>Print Working Directory</strong></p>
+                <p>Shows your current directory location</p>
+                <button class="btn btn-sm btn-outline-primary" onclick="tryCommand('pwd')">Try It</button>
+              </div>
+              
+              <div class="command-card shadow-hover">
+                <code>ls</code>
+                <p><strong>List</strong></p>
+                <p>Lists files and directories in current location</p>
+                <button class="btn btn-sm btn-outline-primary" onclick="tryCommand('ls')">Try It</button>
+              </div>
+              
+              <div class="command-card shadow-hover">
+                <code>cd</code>
+                <p><strong>Change Directory</strong></p>
+                <p>Moves to a different directory</p>
+                <button class="btn btn-sm btn-outline-primary" onclick="tryCommand('cd')">Try It</button>
+              </div>
+              
+              <div class="command-card shadow-hover">
+                <code>mkdir</code>
+                <p><strong>Make Directory</strong></p>
+                <p>Creates a new directory</p>
+                <button class="btn btn-sm btn-outline-primary" onclick="tryCommand('mkdir')">Try It</button>
+              </div>
+              
+              <div class="command-card shadow-hover">
+                <code>rm</code>
+                <p><strong>Remove</strong></p>
+                <p>Deletes files and directories</p>
+                <button class="btn btn-sm btn-outline-primary" onclick="tryCommand('rm')">Try It</button>
+              </div>
+              
+              <div class="command-card shadow-hover">
+                <code>cp</code>
+                <p><strong>Copy</strong></p>
+                <p>Copies files and directories</p>
+                <button class="btn btn-sm btn-outline-primary" onclick="tryCommand('cp')">Try It</button>
+              </div>
+              
+              <div class="command-card shadow-hover">
+                <code>mv</code>
+                <p><strong>Move</strong></p>
+                <p>Moves or renames files and directories</p>
+                <button class="btn btn-sm btn-outline-primary" onclick="tryCommand('mv')">Try It</button>
+              </div>
+              
+              <div class="command-card shadow-hover">
+                <code>cat</code>
+                <p><strong>Concatenate</strong></p>
+                <p>Displays file contents</p>
+                <button class="btn btn-sm btn-outline-primary" onclick="tryCommand('cat')">Try It</button>
+              </div>
+            </div>
+
+            <h3 class="mt-4"><i class="fas fa-cogs text-info me-2"></i>Command Options and Flags</h3>
+            <div class="code-example">
+              <h5>Common ls Options:</h5>
+              <pre><code>ls -l          # Long format (detailed view)
+ls -a          # Show all files (including hidden)
+ls -la         # Long format + all files
+ls -lh         # Human-readable file sizes
+ls -R          # Recursive (show subdirectories)</code></pre>
+            </div>
+
+            <div class="code-example">
+              <h5>Common cd Commands:</h5>
+              <pre><code>cd /home/user   # Absolute path
+cd ..           # Go to parent directory
+cd ~            # Go to home directory
+cd -            # Go to previous directory
+cd              # Go to home directory</code></pre>
+            </div>
+
+            <h3 class="mt-4"><i class="fas fa-exclamation-triangle text-warning me-2"></i>Important Safety Notes</h3>
+            <div class="alert alert-warning">
+              <h5><i class="fas fa-shield-alt me-2"></i>Be Careful with rm Command</h5>
+              <ul>
+                <li><code>rm -rf /</code> - <strong>NEVER</strong> run this! It deletes everything!</li>
+                <li>Always double-check what you're deleting</li>
+                <li>Use <code>rm -i</code> for interactive mode (asks for confirmation)</li>
+                <li>Consider using <code>trash-cli</code> instead of rm for safety</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="sidebar-card">
+            <h4><i class="fas fa-terminal me-2"></i>Command Examples</h4>
+            <div class="example-commands">
+              <div class="example-command">
+                <code>ls -la</code>
+                <small>List all files with details</small>
+              </div>
+              <div class="example-command">
+                <code>cd /home/user</code>
+                <small>Navigate to user directory</small>
+              </div>
+              <div class="example-command">
+                <code>mkdir myproject</code>
+                <small>Create new directory</small>
+              </div>
+              <div class="example-command">
+                <code>cp file1.txt file2.txt</code>
+                <small>Copy file1 to file2</small>
+              </div>
+              <div class="example-command">
+                <code>mv oldname.txt newname.txt</code>
+                <small>Rename file</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Terminal Section -->
+  <section class="content-section bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="content-card">
+            <h2><i class="fas fa-laptop-code text-primary me-2"></i>Interactive Terminal</h2>
+            <p>Practice Linux commands in a realistic terminal environment. Try the commands you've learned and see the results in real-time.</p>
+            
+            <div class="terminal-container">
+              <div class="terminal-header">
+                <span class="terminal-title">Linux Terminal Simulator</span>
+                <div class="terminal-buttons">
+                  <span class="terminal-btn"></span>
+                  <span class="terminal-btn"></span>
+                  <span class="terminal-btn"></span>
+                </div>
+              </div>
+              <div class="terminal-body" id="terminal">
+                <div class="terminal-line">
+                  <span class="prompt">user@linux:~$</span>
+                  <span class="command" id="currentCommand"></span>
+                  <span class="cursor">|</span>
+                </div>
+                <div class="terminal-output" id="terminalOutput">
+                  Welcome to Linux Terminal Simulator!
+                  Type 'help' for available commands.
+                  Type 'clear' to clear the terminal.
+                </div>
+              </div>
+              <div class="terminal-input">
+                <input type="text" id="commandInput" placeholder="Type a command..." class="form-control">
+                <button class="btn btn-primary" onclick="executeCommand()">Execute</button>
+                <button class="btn btn-secondary" onclick="clearTerminal()">Clear</button>
+              </div>
+            </div>
+
+            <h3 class="mt-4"><i class="fas fa-list text-info me-2"></i>Available Commands</h3>
+            <div class="row">
+              <div class="col-md-6">
+                <h5>Navigation Commands</h5>
+                <ul class="feature-list">
+                  <li><code>pwd</code> - Show current directory</li>
+                  <li><code>ls</code> - List files and directories</li>
+                  <li><code>cd [directory]</code> - Change directory</li>
+                  <li><code>cd ..</code> - Go to parent directory</li>
+                  <li><code>cd ~</code> - Go to home directory</li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <h5>File Management</h5>
+                <ul class="feature-list">
+                  <li><code>mkdir [name]</code> - Create directory</li>
+                  <li><code>rm [file]</code> - Remove file</li>
+                  <li><code>cp [source] [dest]</code> - Copy file</li>
+                  <li><code>mv [source] [dest]</code> - Move/rename file</li>
+                  <li><code>cat [file]</code> - Display file contents</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="sidebar-card">
+            <h4><i class="fas fa-shield-alt me-2"></i>Terminal Tips</h4>
+            <ul class="tips-list">
+              <li>Use Tab for auto-completion</li>
+              <li>Use ↑↓ arrows for command history</li>
+              <li>Ctrl+C to cancel running command</li>
+              <li>Ctrl+L to clear screen</li>
+              <li>Use quotes for filenames with spaces</li>
+            </ul>
+          </div>
+          
+          <div class="sidebar-card mt-4">
+            <h4><i class="fas fa-keyboard me-2"></i>Keyboard Shortcuts</h4>
+            <ul class="tips-list">
+              <li><strong>Ctrl+A:</strong> Move to beginning of line</li>
+              <li><strong>Ctrl+E:</strong> Move to end of line</li>
+              <li><strong>Ctrl+U:</strong> Clear line before cursor</li>
+              <li><strong>Ctrl+K:</strong> Clear line after cursor</li>
+              <li><strong>Ctrl+R:</strong> Search command history</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation Section -->
+  <section class="content-section bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="content-card">
+            <h2><i class="fas fa-arrow-right text-primary me-2"></i>Ready for the Next Step?</h2>
+            <p>Now that you can navigate the file system, let's learn about user management, permissions, and security.</p>
+            
+            <div class="next-module-card">
+              <div class="row align-items-center">
+                <div class="col-md-8">
+                  <h3><i class="fas fa-users text-success me-2"></i>User Management</h3>
+                  <p>Learn to create users, manage permissions, and understand security concepts in Linux.</p>
+                  <div class="module-features">
+                    <span class="badge bg-primary">User Creation</span>
+                    <span class="badge bg-success">Permissions</span>
+                    <span class="badge bg-info">Security</span>
+                  </div>
+                </div>
+                <div class="col-md-4 text-center">
+                  <a href="users.html" class="btn btn-primary btn-lg">
+                    <i class="fas fa-arrow-right me-2"></i>Start Module
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="sidebar-card">
+            <h4><i class="fas fa-question-circle me-2"></i>Test Your Knowledge</h4>
+            <p>Take the quiz to test what you've learned about file system navigation.</p>
+            <a href="navigation-quiz.html" class="btn btn-success w-100">
+              <i class="fas fa-question-circle me-2"></i>Take Quiz
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h5><i class="fab fa-linux me-2"></i>Linux Academy</h5>
+          <p>Master the fundamentals of Linux with our comprehensive guide.</p>
+        </div>
+        <div class="col-md-6">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="../index.html" class="text-light">Home</a></li>
+            <li><a href="intro.html" class="text-light">Introduction</a></li>
+            <li><a href="navigation.html" class="text-light">Navigation</a></li>
+            <li><a href="users.html" class="text-light">User Management</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+      <p>&copy; 2025 Linux Academy. Built with ❤️ using Bootstrap.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JavaScript -->
+  <script src="../js/script.js"></script>
+  <script>
+    // Progress bar functionality
+    window.addEventListener('scroll', function() {
+      const scrollTop = window.pageYOffset;
+      const docHeight = document.body.offsetHeight - window.innerHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      document.getElementById('progressBar').style.width = scrollPercent + '%';
+    });
+
+    // Terminal functionality
+    let currentDirectory = '/home/user';
+    let fileSystem = {
+      '/home/user': {
+        type: 'directory',
+        contents: ['Documents', 'Downloads', 'Pictures', 'Desktop']
+      },
+      '/home/user/Documents': {
+        type: 'directory',
+        contents: ['project1.txt', 'notes.txt']
+      },
+      '/home/user/Downloads': {
+        type: 'directory',
+        contents: ['file1.txt', 'image.jpg']
+      }
+    };
+
+    function executeCommand() {
+      const input = document.getElementById('commandInput');
+      const command = input.value.trim();
+      
+      if (command === '') return;
+      
+      // Add command to terminal
+      addToTerminal(`user@linux:~$ ${command}`);
+      
+      // Process command
+      const parts = command.split(' ');
+      const cmd = parts[0];
+      const args = parts.slice(1);
+      
+      let output = '';
+      
+      switch(cmd) {
+        case 'pwd':
+          output = currentDirectory;
+          break;
+        case 'ls':
+          output = executeLs(args);
+          break;
+        case 'cd':
+          output = executeCd(args);
+          break;
+        case 'mkdir':
+          output = executeMkdir(args);
+          break;
+        case 'rm':
+          output = executeRm(args);
+          break;
+        case 'cp':
+          output = executeCp(args);
+          break;
+        case 'mv':
+          output = executeMv(args);
+          break;
+        case 'cat':
+          output = executeCat(args);
+          break;
+        case 'clear':
+          clearTerminal();
+          input.value = '';
+          return;
+        case 'help':
+          output = `Available commands:
+pwd - Print working directory
+ls [options] - List files and directories
+cd [directory] - Change directory
+mkdir [name] - Create directory
+rm [file] - Remove file
+cp [source] [dest] - Copy file
+mv [source] [dest] - Move/rename file
+cat [file] - Display file contents
+clear - Clear terminal
+help - Show this help`;
+          break;
+        default:
+          output = `bash: ${cmd}: command not found`;
+      }
+      
+      if (output) {
+        addToTerminal(output);
+      }
+      
+      input.value = '';
+    }
+
+    function addToTerminal(text) {
+      const output = document.getElementById('terminalOutput');
+      output.innerHTML += '<br>' + text;
+      output.scrollTop = output.scrollHeight;
+    }
+
+    function clearTerminal() {
+      document.getElementById('terminalOutput').innerHTML = '';
+    }
+
+    function executeLs(args) {
+      const dir = currentDirectory;
+      if (fileSystem[dir]) {
+        return fileSystem[dir].contents.join('  ');
+      }
+      return 'ls: cannot access directory: No such file or directory';
+    }
+
+    function executeCd(args) {
+      if (args.length === 0 || args[0] === '~') {
+        currentDirectory = '/home/user';
+        return '';
+      }
+      if (args[0] === '..') {
+        const parts = currentDirectory.split('/');
+        parts.pop();
+        currentDirectory = parts.join('/') || '/';
+        return '';
+      }
+      return `cd: ${args[0]}: No such file or directory`;
+    }
+
+    function executeMkdir(args) {
+      if (args.length === 0) {
+        return 'mkdir: missing operand';
+      }
+      return `Created directory: ${args[0]}`;
+    }
+
+    function executeRm(args) {
+      if (args.length === 0) {
+        return 'rm: missing operand';
+      }
+      return `Removed: ${args[0]}`;
+    }
+
+    function executeCp(args) {
+      if (args.length < 2) {
+        return 'cp: missing file operand';
+      }
+      return `Copied ${args[0]} to ${args[1]}`;
+    }
+
+    function executeMv(args) {
+      if (args.length < 2) {
+        return 'mv: missing file operand';
+      }
+      return `Moved ${args[0]} to ${args[1]}`;
+    }
+
+    function executeCat(args) {
+      if (args.length === 0) {
+        return 'cat: missing operand';
+      }
+      return `Contents of ${args[0]}: This is a sample file content.`;
+    }
+
+    // Command input handling
+    document.getElementById('commandInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        executeCommand();
+      }
+    });
+
+    function tryCommand(cmd) {
+      document.getElementById('commandInput').value = cmd;
+      executeCommand();
+    }
+  </script>
+</body>
+</html> 
