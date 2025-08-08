@@ -8,27 +8,17 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
   <!-- Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
-    body {
-      scroll-behavior: smooth;
-    }
-    .hero {
-      background: #212529;
-      color: white;
-      padding: 60px 0;
-      text-align: center;
-    }
-    section {
-      padding: 60px 20px;
-    }
-  </style>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#">Linux Basics</a>
+      <a class="navbar-brand" href="#">
+        <i class="fab fa-linux me-2"></i>Linux Basics
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -39,6 +29,7 @@
           <li class="nav-item"><a class="nav-link" href="#users">User Mgmt</a></li>
           <li class="nav-item"><a class="nav-link" href="#scripts">Scripting</a></li>
           <li class="nav-item"><a class="nav-link" href="#project">Project</a></li>
+          <li class="nav-item"><a class="nav-link" href="#quiz">Quiz</a></li>
         </ul>
       </div>
     </div>
@@ -47,72 +38,428 @@
   <!-- Hero Section -->
   <header class="hero" id="home">
     <div class="container">
-      <h1 class="display-4">Learn Linux for Beginners</h1>
-      <p class="lead">Master the basics of Linux using easy-to-follow tutorials and hands-on examples.</p>
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <h1 class="display-4 fw-bold">Learn Linux for Beginners</h1>
+          <p class="lead mb-4">Master the basics of Linux using easy-to-follow tutorials, hands-on examples, and interactive exercises.</p>
+          <div class="hero-buttons">
+            <a href="#intro" class="btn btn-primary btn-lg me-3">
+              <i class="fas fa-play me-2"></i>Start Learning
+            </a>
+            <a href="#quiz" class="btn btn-outline-light btn-lg">
+              <i class="fas fa-question-circle me-2"></i>Take Quiz
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-4 text-center">
+          <i class="fab fa-linux hero-icon"></i>
+        </div>
+      </div>
     </div>
   </header>
 
+  <!-- Progress Bar -->
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
   <!-- Sections -->
-  <section id="intro" class="bg-light">
+  <section id="intro" class="content-section">
     <div class="container">
-      <h2>1. Introduction to Linux</h2>
-      <ul>
-        <li>What is Linux?</li>
-        <li>Linux Distributions</li>
-        <li>Why Learn Linux?</li>
-        <li>Setting up Your Environment (WSL, VM, USB Boot)</li>
-      </ul>
+      <div class="row">
+        <div class="col-lg-8">
+          <h2><i class="fas fa-info-circle text-primary me-2"></i>1. Introduction to Linux</h2>
+          <div class="content-card">
+            <h3>What is Linux?</h3>
+            <p>Linux is a free and open-source operating system kernel that serves as the foundation for many operating systems. It was created by Linus Torvalds in 1991 and has become one of the most popular operating systems in the world.</p>
+            
+            <h3>Linux Distributions</h3>
+            <div class="distro-grid">
+              <div class="distro-card">
+                <h4>Ubuntu</h4>
+                <p>Great for beginners, user-friendly</p>
+              </div>
+              <div class="distro-card">
+                <h4>CentOS</h4>
+                <p>Enterprise-grade, stable</p>
+              </div>
+              <div class="distro-card">
+                <h4>Debian</h4>
+                <p>Very stable, community-driven</p>
+              </div>
+            </div>
+
+            <h3>Why Learn Linux?</h3>
+            <ul class="feature-list">
+              <li><i class="fas fa-check text-success me-2"></i>Free and open-source</li>
+              <li><i class="fas fa-check text-success me-2"></i>Highly secure and stable</li>
+              <li><i class="fas fa-check text-success me-2"></i>Essential for IT careers</li>
+              <li><i class="fas fa-check text-success me-2"></i>Runs on servers worldwide</li>
+            </ul>
+
+            <h3>Setting up Your Environment</h3>
+            <div class="setup-options">
+              <div class="setup-card">
+                <h4><i class="fab fa-windows me-2"></i>Windows Subsystem for Linux (WSL)</h4>
+                <p>Run Linux directly on Windows 10/11</p>
+                <button class="btn btn-sm btn-outline-primary" onclick="showSetupGuide('wsl')">Learn More</button>
+              </div>
+              <div class="setup-card">
+                <h4><i class="fas fa-desktop me-2"></i>Virtual Machine</h4>
+                <p>Use VirtualBox or VMware</p>
+                <button class="btn btn-sm btn-outline-primary" onclick="showSetupGuide('vm')">Learn More</button>
+              </div>
+              <div class="setup-card">
+                <h4><i class="fas fa-usb me-2"></i>USB Boot</h4>
+                <p>Boot from USB drive</p>
+                <button class="btn btn-sm btn-outline-primary" onclick="showSetupGuide('usb')">Learn More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="sidebar-card">
+            <h4><i class="fas fa-lightbulb me-2"></i>Quick Tips</h4>
+            <ul class="tips-list">
+              <li>Start with Ubuntu for the easiest learning curve</li>
+              <li>Practice commands in a safe environment</li>
+              <li>Don't be afraid to experiment</li>
+              <li>Use the terminal as much as possible</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section id="navigation">
+  <section id="navigation" class="content-section bg-light">
     <div class="container">
-      <h2>2. Getting Started with Linux</h2>
-      <ul>
-        <li>File System Structure</li>
-        <li>Basic Terminal Commands</li>
-        <li>File Handling</li>
-        <li>Viewing Contents</li>
-      </ul>
+      <div class="row">
+        <div class="col-lg-8">
+          <h2><i class="fas fa-folder-open text-primary me-2"></i>2. File System Navigation</h2>
+          <div class="content-card">
+            <h3>File System Structure</h3>
+            <div class="file-tree">
+              <div class="tree-item">
+                <i class="fas fa-folder text-warning me-2"></i>/ (root)
+                <div class="tree-children">
+                  <div class="tree-item">
+                    <i class="fas fa-folder text-warning me-2"></i>/home (user files)
+                  </div>
+                  <div class="tree-item">
+                    <i class="fas fa-folder text-warning me-2"></i>/etc (configuration)
+                  </div>
+                  <div class="tree-item">
+                    <i class="fas fa-folder text-warning me-2"></i>/bin (binary files)
+                  </div>
+                  <div class="tree-item">
+                    <i class="fas fa-folder text-warning me-2"></i>/var (variable data)
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <h3>Essential Commands</h3>
+            <div class="command-grid">
+              <div class="command-card">
+                <code>pwd</code>
+                <p>Print working directory</p>
+              </div>
+              <div class="command-card">
+                <code>ls</code>
+                <p>List files and directories</p>
+              </div>
+              <div class="command-card">
+                <code>cd</code>
+                <p>Change directory</p>
+              </div>
+              <div class="command-card">
+                <code>mkdir</code>
+                <p>Make directory</p>
+              </div>
+              <div class="command-card">
+                <code>rm</code>
+                <p>Remove files</p>
+              </div>
+              <div class="command-card">
+                <code>cp</code>
+                <p>Copy files</p>
+              </div>
+            </div>
+
+            <h3>Interactive Terminal</h3>
+            <div class="terminal-container">
+              <div class="terminal-header">
+                <span class="terminal-title">Linux Terminal</span>
+                <div class="terminal-buttons">
+                  <span class="terminal-btn"></span>
+                  <span class="terminal-btn"></span>
+                  <span class="terminal-btn"></span>
+                </div>
+              </div>
+              <div class="terminal-body" id="terminal">
+                <div class="terminal-line">
+                  <span class="prompt">user@linux:~$</span>
+                  <span class="command" id="currentCommand"></span>
+                  <span class="cursor">|</span>
+                </div>
+                <div class="terminal-output" id="terminalOutput"></div>
+              </div>
+              <div class="terminal-input">
+                <input type="text" id="commandInput" placeholder="Type a command..." class="form-control">
+                <button class="btn btn-primary" onclick="executeCommand()">Execute</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="sidebar-card">
+            <h4><i class="fas fa-terminal me-2"></i>Command Examples</h4>
+            <div class="example-commands">
+              <div class="example-command">
+                <code>ls -la</code>
+                <small>List all files with details</small>
+              </div>
+              <div class="example-command">
+                <code>cd /home/user</code>
+                <small>Navigate to user directory</small>
+              </div>
+              <div class="example-command">
+                <code>mkdir myproject</code>
+                <small>Create new directory</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section id="users" class="bg-light">
+  <section id="users" class="content-section">
     <div class="container">
-      <h2>3. User Management</h2>
-      <ul>
-        <li>Creating Users & Groups</li>
-        <li>Permissions and Ownership</li>
-        <li>Using sudo and su</li>
-      </ul>
+      <div class="row">
+        <div class="col-lg-8">
+          <h2><i class="fas fa-users text-primary me-2"></i>3. User Management</h2>
+          <div class="content-card">
+            <h3>Creating Users & Groups</h3>
+            <div class="code-example">
+              <h4>Add a new user:</h4>
+              <pre><code>sudo adduser username</code></pre>
+              <button class="btn btn-sm btn-outline-secondary" onclick="copyCode(this)">Copy</button>
+            </div>
+
+            <div class="code-example">
+              <h4>Create a group:</h4>
+              <pre><code>sudo groupadd groupname</code></pre>
+              <button class="btn btn-sm btn-outline-secondary" onclick="copyCode(this)">Copy</button>
+            </div>
+
+            <h3>Permissions and Ownership</h3>
+            <div class="permissions-explanation">
+              <h4>File Permissions:</h4>
+              <div class="permission-grid">
+                <div class="permission-item">
+                  <strong>r</strong> - Read
+                </div>
+                <div class="permission-item">
+                  <strong>w</strong> - Write
+                </div>
+                <div class="permission-item">
+                  <strong>x</strong> - Execute
+                </div>
+              </div>
+              <p>Example: <code>rw-r--r--</code> means owner can read/write, group and others can only read.</p>
+            </div>
+
+            <h3>Using sudo and su</h3>
+            <div class="code-example">
+              <h4>Switch to root user:</h4>
+              <pre><code>sudo su -</code></pre>
+              <button class="btn btn-sm btn-outline-secondary" onclick="copyCode(this)">Copy</button>
+            </div>
+
+            <div class="code-example">
+              <h4>Run command as root:</h4>
+              <pre><code>sudo command</code></pre>
+              <button class="btn btn-sm btn-outline-secondary" onclick="copyCode(this)">Copy</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="sidebar-card">
+            <h4><i class="fas fa-shield-alt me-2"></i>Security Tips</h4>
+            <ul class="tips-list">
+              <li>Never run commands as root unless necessary</li>
+              <li>Use strong passwords</li>
+              <li>Keep your system updated</li>
+              <li>Be careful with file permissions</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section id="scripts">
+  <section id="scripts" class="content-section bg-light">
     <div class="container">
-      <h2>4. Shell Scripting Basics</h2>
-      <ul>
-        <li>Your First Script</li>
-        <li>Variables & Loops</li>
-        <li>Conditional Statements</li>
-      </ul>
+      <div class="row">
+        <div class="col-lg-8">
+          <h2><i class="fas fa-code text-primary me-2"></i>4. Shell Scripting Basics</h2>
+          <div class="content-card">
+            <h3>Your First Script</h3>
+            <div class="code-example">
+              <h4>Hello World Script:</h4>
+              <pre><code>#!/bin/bash
+echo "Hello, World!"
+echo "Welcome to Linux scripting!"</code></pre>
+              <button class="btn btn-sm btn-outline-secondary" onclick="copyCode(this)">Copy</button>
+            </div>
+
+            <h3>Variables & Loops</h3>
+            <div class="code-example">
+              <h4>Variables example:</h4>
+              <pre><code>#!/bin/bash
+name="John"
+echo "Hello, $name!"
+
+# Loop example
+for i in {1..5}
+do
+    echo "Count: $i"
+done</code></pre>
+              <button class="btn btn-sm btn-outline-secondary" onclick="copyCode(this)">Copy</button>
+            </div>
+
+            <h3>Conditional Statements</h3>
+            <div class="code-example">
+              <h4>If statement example:</h4>
+              <pre><code>#!/bin/bash
+if [ -f "file.txt" ]; then
+    echo "File exists!"
+else
+    echo "File does not exist!"
+fi</code></pre>
+              <button class="btn btn-sm btn-outline-secondary" onclick="copyCode(this)">Copy</button>
+            </div>
+
+            <h3>Interactive Script Editor</h3>
+            <div class="script-editor">
+              <textarea id="scriptEditor" class="form-control" rows="10" placeholder="Write your script here...">#!/bin/bash
+echo "Hello from your script!"</textarea>
+              <div class="editor-buttons">
+                <button class="btn btn-primary" onclick="runScript()">Run Script</button>
+                <button class="btn btn-secondary" onclick="saveScript()">Save Script</button>
+                <button class="btn btn-outline-secondary" onclick="clearScript()">Clear</button>
+              </div>
+              <div id="scriptOutput" class="script-output"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="sidebar-card">
+            <h4><i class="fas fa-book me-2"></i>Scripting Tips</h4>
+            <ul class="tips-list">
+              <li>Always start with shebang (#!)</li>
+              <li>Use meaningful variable names</li>
+              <li>Add comments to explain code</li>
+              <li>Test your scripts thoroughly</li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section id="project" class="bg-light">
+  <section id="project" class="content-section">
     <div class="container">
-      <h2>5. Final Project</h2>
-      <p>Build a simple automation script, create user accounts, or set up a basic web server using Apache or Nginx.</p>
+      <h2><i class="fas fa-project-diagram text-primary me-2"></i>5. Final Project</h2>
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="project-card">
+            <h3><i class="fas fa-robot me-2"></i>Automation Script</h3>
+            <p>Create a script that automates common tasks like system updates, log cleanup, or file organization.</p>
+            <button class="btn btn-primary" onclick="showProjectGuide('automation')">View Guide</button>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="project-card">
+            <h3><i class="fas fa-server me-2"></i>Web Server Setup</h3>
+            <p>Set up Apache or Nginx web server and host a simple website.</p>
+            <button class="btn btn-primary" onclick="showProjectGuide('webserver')">View Guide</button>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="project-card">
+            <h3><i class="fas fa-users-cog me-2"></i>User Management System</h3>
+            <p>Create a script to manage user accounts, groups, and permissions.</p>
+            <button class="btn btn-primary" onclick="showProjectGuide('users')">View Guide</button>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="project-card">
+            <h3><i class="fas fa-database me-2"></i>Backup System</h3>
+            <p>Build an automated backup system for important files and directories.</p>
+            <button class="btn btn-primary" onclick="showProjectGuide('backup')">View Guide</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="quiz" class="content-section bg-light">
+    <div class="container">
+      <h2><i class="fas fa-question-circle text-primary me-2"></i>Linux Quiz</h2>
+      <div class="quiz-container">
+        <div id="quizStart" class="quiz-start">
+          <h3>Test Your Linux Knowledge</h3>
+          <p>Take this quiz to test what you've learned about Linux!</p>
+          <button class="btn btn-primary btn-lg" onclick="startQuiz()">Start Quiz</button>
+        </div>
+        <div id="quizContent" class="quiz-content" style="display: none;">
+          <div class="quiz-progress">
+            <div class="progress">
+              <div class="progress-bar" id="quizProgress" role="progressbar"></div>
+            </div>
+            <span id="questionCounter">Question 1 of 10</span>
+          </div>
+          <div id="questionContainer" class="question-container">
+            <!-- Questions will be loaded here -->
+          </div>
+        </div>
+        <div id="quizResults" class="quiz-results" style="display: none;">
+          <!-- Results will be shown here -->
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="bg-dark text-white text-center py-3">
-    <p>&copy; 2025 Learn Linux. Built with ❤️ using Bootstrap.</p>
+  <footer class="bg-dark text-white text-center py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h5><i class="fab fa-linux me-2"></i>Learn Linux</h5>
+          <p>Master the basics of Linux with our comprehensive guide.</p>
+        </div>
+        <div class="col-md-6">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="#intro" class="text-light">Introduction</a></li>
+            <li><a href="#navigation" class="text-light">Navigation</a></li>
+            <li><a href="#users" class="text-light">User Management</a></li>
+            <li><a href="#scripts" class="text-light">Scripting</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+      <p>&copy; 2025 Learn Linux. Built with ❤️ using Bootstrap.</p>
+    </div>
   </footer>
 
   <!-- Bootstrap JS Bundle -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JavaScript -->
+  <script src="js/script.js"></script>
 </body>
 </html>
 
