@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File System Navigation Quiz - Linux Academy</title>
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="../index.html">
+        <i class="fab fa-linux me-2"></i>Linux Academy
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="intro.html">Intro</a></li>
+          <li class="nav-item"><a class="nav-link" href="navigation.html">Navigation</a></li>
+          <li class="nav-item"><a class="nav-link" href="users.html">Users</a></li>
+          <li class="nav-item"><a class="nav-link" href="scripts.html">Scripts</a></li>
+          <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="container mt-5 pt-5">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+        <li class="breadcrumb-item"><a href="navigation.html">File System Navigation</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Navigation Quiz</li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- Quiz Container -->
+  <section class="content-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="quiz-container">
+            <div id="quizStart" class="quiz-start">
+              <h2><i class="fas fa-folder-open text-primary me-2"></i>File System Navigation Quiz</h2>
+              <p class="lead">Test your knowledge of Linux commands, file system structure, and navigation techniques.</p>
+              
+              <div class="quiz-info">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="info-card">
+                      <i class="fas fa-clock text-info"></i>
+                      <h5>Duration</h5>
+                      <p>10-15 minutes</p>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="info-card">
+                      <i class="fas fa-question text-success"></i>
+                      <h5>Questions</h5>
+                      <p>10 questions</p>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="info-card">
+                      <i class="fas fa-trophy text-warning"></i>
+                      <h5>Passing Score</h5>
+                      <p>70% (7/10)</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <button class="btn btn-primary btn-lg mt-4" onclick="startQuiz()">
+                <i class="fas fa-play me-2"></i>Start Quiz
+              </button>
+            </div>
+            
+            <div id="quizContent" class="quiz-content" style="display: none;">
+              <div class="quiz-progress">
+                <div class="progress mb-3">
+                  <div class="progress-bar" id="quizProgress" role="progressbar"></div>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span id="questionCounter">Question 1 of 10</span>
+                  <span id="scoreDisplay">Score: 0/10</span>
+                </div>
+              </div>
+              
+              <div id="questionContainer" class="question-container">
+                <!-- Questions will be loaded here -->
+              </div>
+              
+              <div class="quiz-navigation mt-4">
+                <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()" disabled>
+                  <i class="fas fa-arrow-left me-2"></i>Previous
+                </button>
+                <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">
+                  Next<i class="fas fa-arrow-right ms-2"></i>
+                </button>
+                <button class="btn btn-success" id="finishBtn" onclick="finishQuiz()" style="display: none;">
+                  <i class="fas fa-check me-2"></i>Finish Quiz
+                </button>
+              </div>
+            </div>
+            
+            <div id="quizResults" class="quiz-results" style="display: none;">
+              <!-- Results will be shown here -->
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="sidebar-card">
+            <h4><i class="fas fa-info-circle me-2"></i>Quiz Instructions</h4>
+            <ul class="tips-list">
+              <li>Focus on command syntax</li>
+              <li>Remember file system structure</li>
+              <li>Consider command options</li>
+              <li>Think about safety practices</li>
+              <li>Review terminal shortcuts</li>
+            </ul>
+          </div>
+          
+          <div class="sidebar-card mt-4">
+            <h4><i class="fas fa-book me-2"></i>Study Resources</h4>
+            <ul class="tips-list">
+              <li><a href="navigation.html">Review Navigation Module</a></li>
+              <li><a href="navigation.html#terminal">Practice Terminal</a></li>
+              <li>man pages for commands</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h5><i class="fab fa-linux me-2"></i>Linux Academy</h5>
+          <p>Master the fundamentals of Linux with our comprehensive guide.</p>
+        </div>
+        <div class="col-md-6">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="../index.html" class="text-light">Home</a></li>
+            <li><a href="intro.html" class="text-light">Introduction</a></li>
+            <li><a href="navigation.html" class="text-light">Navigation</a></li>
+            <li><a href="users.html" class="text-light">User Management</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+      <p>&copy; 2025 Linux Academy. Built with ❤️ using Bootstrap.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JavaScript -->
+  <script src="../js/script.js"></script>
+  <script>
+    // Quiz questions for File System Navigation
+    const questions = [
+      {
+        question: "What command shows your current directory location?",
+        options: [
+          "cd",
+          "pwd",
+          "ls",
+          "whoami"
+        ],
+        correct: 1,
+        explanation: "The 'pwd' command stands for 'print working directory' and shows your current location in the file system."
+      },
+      {
+        question: "Which command is used to list files and directories?",
+        options: [
+          "dir",
+          "list",
+          "ls",
+          "show"
+        ],
+        correct: 2,
+        explanation: "The 'ls' command lists the contents of a directory. It's one of the most commonly used Linux commands."
+      },
+      {
+        question: "What does the command 'cd ..' do?",
+        options: [
+          "Goes to the home directory",
+          "Goes to the previous directory",
+          "Goes to the parent directory",
+          "Goes to the root directory"
+        ],
+        correct: 2,
+        explanation: "The 'cd ..' command moves you up one level to the parent directory. The '..' represents the parent directory."
+      },
+      {
+        question: "Which option with 'ls' shows hidden files?",
+        options: [
+          "ls -h",
+          "ls -a",
+          "ls -l",
+          "ls -R"
+        ],
+        correct: 1,
+        explanation: "The 'ls -a' command shows all files, including hidden files that start with a dot (.)."
+      },
+      {
+        question: "What is the root directory in Linux?",
+        options: [
+          "/root",
+          "/home",
+          "/",
+          "/usr"
+        ],
+        correct: 2,
+        explanation: "The root directory is represented by a single forward slash (/). All other directories branch out from here."
+      },
+      {
+        question: "Which command creates a new directory?",
+        options: [
+          "makedir",
+          "mkdir",
+          "newdir",
+          "createdir"
+        ],
+        correct: 1,
+        explanation: "The 'mkdir' command stands for 'make directory' and is used to create new directories."
+      },
+      {
+        question: "What does 'ls -l' display?",
+        options: [
+          "Only files",
+          "Only directories",
+          "Long format with details",
+          "Hidden files only"
+        ],
+        correct: 2,
+        explanation: "The 'ls -l' command displays files and directories in long format, showing permissions, ownership, size, and modification date."
+      },
+      {
+        question: "Which directory contains user home directories?",
+        options: [
+          "/usr",
+          "/home",
+          "/var",
+          "/etc"
+        ],
+        correct: 1,
+        explanation: "The /home directory contains individual user directories. Each user typically has a subdirectory here."
+      },
+      {
+        question: "What command removes a file?",
+        options: [
+          "delete",
+          "remove",
+          "rm",
+          "del"
+        ],
+        correct: 2,
+        explanation: "The 'rm' command removes (deletes) files. Be careful with this command as it permanently deletes files."
+      },
+      {
+        question: "Which command copies files?",
+        options: [
+          "copy",
+          "cp",
+          "duplicate",
+          "clone"
+        ],
+        correct: 1,
+        explanation: "The 'cp' command copies files and directories. Syntax: cp source destination."
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let userAnswers = new Array(questions.length).fill(null);
+
+    function startQuiz() {
+      document.getElementById('quizStart').style.display = 'none';
+      document.getElementById('quizContent').style.display = 'block';
+      loadQuestion();
+    }
+
+    function loadQuestion() {
+      const question = questions[currentQuestion];
+      const container = document.getElementById('questionContainer');
+      
+      container.innerHTML = `
+        <div class="question">
+          <h3>${question.question}</h3>
+          <div class="options">
+            ${question.options.map((option, index) => `
+              <div class="option ${userAnswers[currentQuestion] === index ? 'selected' : ''}" onclick="selectOption(${index})">
+                <span class="option-letter">${String.fromCharCode(65 + index)}</span>
+                <span class="option-text">${option}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      
+      updateProgress();
+      updateNavigation();
+    }
+
+    function selectOption(optionIndex) {
+      userAnswers[currentQuestion] = optionIndex;
+      
+      // Update visual selection
+      document.querySelectorAll('.option').forEach((option, index) => {
+        option.classList.toggle('selected', index === optionIndex);
+      });
+      
+      updateNavigation();
+    }
+
+    function nextQuestion() {
+      if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        loadQuestion();
+      }
+    }
+
+    function previousQuestion() {
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        loadQuestion();
+      }
+    }
+
+    function updateProgress() {
+      const progress = ((currentQuestion + 1) / questions.length) * 100;
+      document.getElementById('quizProgress').style.width = progress + '%';
+      document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+      
+      // Show/hide finish button
+      const finishBtn = document.getElementById('finishBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      
+      if (currentQuestion === questions.length - 1) {
+        finishBtn.style.display = 'inline-block';
+        nextBtn.style.display = 'none';
+      } else {
+        finishBtn.style.display = 'none';
+        nextBtn.style.display = 'inline-block';
+      }
+    }
+
+    function updateNavigation() {
+      document.getElementById('prevBtn').disabled = currentQuestion === 0;
+      document.getElementById('nextBtn').disabled = userAnswers[currentQuestion] === null;
+      document.getElementById('finishBtn').disabled = userAnswers[currentQuestion] === null;
+    }
+
+    function finishQuiz() {
+      // Calculate score
+      score = 0;
+      userAnswers.forEach((answer, index) => {
+        if (answer === questions[index].correct) {
+          score++;
+        }
+      });
+      
+      // Show results
+      document.getElementById('quizContent').style.display = 'none';
+      document.getElementById('quizResults').style.display = 'block';
+      
+      const resultsContainer = document.getElementById('quizResults');
+      const percentage = (score / questions.length) * 100;
+      const passed = percentage >= 70;
+      
+      resultsContainer.innerHTML = `
+        <div class="text-center">
+          <h2><i class="fas fa-${passed ? 'trophy' : 'times-circle'} text-${passed ? 'success' : 'danger'} me-2"></i>Quiz Complete!</h2>
+          <div class="score-display">
+            <h3>Your Score: ${score}/${questions.length} (${percentage.toFixed(1)}%)</h3>
+            <p class="lead">${passed ? 'Great job! You understand file system navigation!' : 'Review the navigation module and try again!'}</p>
+          </div>
+          
+          <div class="results-breakdown mt-4">
+            <h4>Question Breakdown:</h4>
+            ${questions.map((question, index) => {
+              const userAnswer = userAnswers[index];
+              const isCorrect = userAnswer === question.correct;
+              const userAnswerText = userAnswer !== null ? question.options[userAnswer] : 'Not answered';
+              const correctAnswerText = question.options[question.correct];
+              
+              return `
+                <div class="question-result ${isCorrect ? 'correct' : 'incorrect'}">
+                  <h5>Question ${index + 1}: ${question.question}</h5>
+                  <p><strong>Your answer:</strong> ${userAnswerText}</p>
+                  <p><strong>Correct answer:</strong> ${correctAnswerText}</p>
+                  <p><strong>Explanation:</strong> ${question.explanation}</p>
+                </div>
+              `;
+            }).join('')}
+          </div>
+          
+          <div class="quiz-actions mt-4">
+            <button class="btn btn-primary me-2" onclick="retakeQuiz()">
+              <i class="fas fa-redo me-2"></i>Retake Quiz
+            </button>
+            <a href="users.html" class="btn btn-success me-2">
+              <i class="fas fa-arrow-right me-2"></i>Next Module
+            </a>
+            <a href="../index.html" class="btn btn-secondary">
+              <i class="fas fa-home me-2"></i>Back to Home
+            </a>
+          </div>
+        </div>
+      `;
+    }
+
+    function retakeQuiz() {
+      currentQuestion = 0;
+      score = 0;
+      userAnswers = new Array(questions.length).fill(null);
+      
+      document.getElementById('quizResults').style.display = 'none';
+      document.getElementById('quizStart').style.display = 'block';
+    }
+  </script>
+</body>
+</html> 
