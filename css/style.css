@@ -346,8 +346,8 @@ body {
 /* Timeline Icon - FIXED POSITIONING */
 .timeline-icon {
   position: absolute;
-  top: 50%;
-  left: 110%;
+  top: 0%;
+  left: 50%;
   transform: translate(-50%, -50%);
   width: 80px;
   height: 80px;
