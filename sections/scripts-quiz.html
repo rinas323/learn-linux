@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shell Scripting Quiz - Linux Academy</title>
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="../index.html">
+        <i class="fab fa-linux me-2"></i>Linux Academy
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="intro.html">Intro</a></li>
+          <li class="nav-item"><a class="nav-link" href="navigation.html">Navigation</a></li>
+          <li class="nav-item"><a class="nav-link" href="users.html">Users</a></li>
+          <li class="nav-item"><a class="nav-link" href="scripts.html">Scripts</a></li>
+          <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="container mt-5 pt-5">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+        <li class="breadcrumb-item"><a href="scripts.html">Shell Scripting</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Shell Scripting Quiz</li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- Quiz Container -->
+  <section class="content-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="quiz-container">
+            <div id="quizStart" class="quiz-start">
+              <h2><i class="fas fa-question-circle text-primary me-2"></i>Shell Scripting Quiz</h2>
+              <p class="lead">Test your knowledge of bash scripting, variables, control structures, and shell programming concepts.</p>
+              
+              <div class="quiz-info">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="info-card">
+                      <i class="fas fa-clock text-info"></i>
+                      <h5>Duration</h5>
+                      <p>15-20 minutes</p>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="info-card">
+                      <i class="fas fa-question text-success"></i>
+                      <h5>Questions</h5>
+                      <p>15 questions</p>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="info-card">
+                      <i class="fas fa-trophy text-warning"></i>
+                      <h5>Passing Score</h5>
+                      <p>70% (11/15)</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <button class="btn btn-primary btn-lg mt-4" onclick="startQuiz()">
+                <i class="fas fa-play me-2"></i>Start Quiz
+              </button>
+            </div>
+            
+            <div id="quizContent" class="quiz-content" style="display: none;">
+              <div class="quiz-progress">
+                <div class="progress mb-3">
+                  <div class="progress-bar" id="quizProgress" role="progressbar"></div>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <span id="questionCounter">Question 1 of 15</span>
+                  <span id="scoreDisplay">Score: 0/15</span>
+                </div>
+              </div>
+              
+              <div id="questionContainer">
+                <!-- Questions will be loaded here -->
+              </div>
+              
+              <div class="quiz-navigation mt-4">
+                <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()" style="display: none;">
+                  <i class="fas fa-arrow-left me-2"></i>Previous
+                </button>
+                <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">
+                  Next<i class="fas fa-arrow-right ms-2"></i>
+                </button>
+                <button class="btn btn-success" id="finishBtn" onclick="finishQuiz()" style="display: none;">
+                  <i class="fas fa-check me-2"></i>Finish Quiz
+                </button>
+              </div>
+            </div>
+            
+            <div id="quizResults" class="quiz-results" style="display: none;">
+              <!-- Results will be displayed here -->
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-4">
+          <div class="sidebar-card">
+            <h4><i class="fas fa-info-circle me-2"></i>Quiz Information</h4>
+            <ul class="tips-list">
+              <li><strong>Topics:</strong> Bash scripting, variables, loops, functions</li>
+              <li><strong>Difficulty:</strong> Intermediate</li>
+              <li><strong>Time Limit:</strong> None</li>
+              <li><strong>Retakes:</strong> Unlimited</li>
+            </ul>
+            
+            <div class="mt-3">
+              <a href="scripts.html" class="btn btn-outline-primary btn-sm w-100">
+                <i class="fas fa-book me-2"></i>Review Material
+              </a>
+            </div>
+          </div>
+          
+          <div class="sidebar-card mt-4">
+            <h4><i class="fas fa-lightbulb me-2"></i>Study Tips</h4>
+            <ul class="tips-list">
+              <li>Review script examples</li>
+              <li>Practice writing simple scripts</li>
+              <li>Understand control structures</li>
+              <li>Learn error handling</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-4">
+    <div class="container">
+      <p>&copy; 2025 Linux Academy. Master Linux fundamentals with our comprehensive guide.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JavaScript -->
+  <script src="../js/script.js"></script>
+  
+  <script>
+    // Quiz questions for Shell Scripting
+    const quizQuestions = [
+      {
+        question: "What is the correct shebang line for a bash script?",
+        options: [
+          "#!/bin/sh",
+          "#!/bin/bash",
+          "#!/usr/bin/bash",
+          "#!/bash"
+        ],
+        correct: 1,
+        explanation: "The correct shebang line for bash scripts is #!/bin/bash. This tells the system to use the bash interpreter to execute the script."
+      },
+      {
+        question: "How do you make a script executable in Linux?",
+        options: [
+          "chmod +x script.sh",
+          "chmod 755 script.sh",
+          "chmod executable script.sh",
+          "make script.sh executable"
+        ],
+        correct: 0,
+        explanation: "Use 'chmod +x script.sh' to make a script executable. The +x flag adds execute permission for all users."
+      },
+      {
+        question: "Which of the following is the correct way to declare a variable in bash?",
+        options: [
+          "var = value",
+          "var=value",
+          "var:value",
+          "var->value"
+        ],
+        correct: 1,
+        explanation: "In bash, variables are declared without spaces around the equals sign: var=value. Spaces would cause syntax errors."
+      },
+      {
+        question: "How do you read user input into a variable in bash?",
+        options: [
+          "input = read",
+          "read input",
+          "get input",
+          "scanf input"
+        ],
+        correct: 1,
+        explanation: "Use 'read input' to read user input into a variable. The read command waits for user input and stores it in the specified variable."
+      },
+      {
+        question: "What is the correct syntax for an if statement in bash?",
+        options: [
+          "if (condition) then",
+          "if [ condition ]; then",
+          "if condition:",
+          "if condition then"
+        ],
+        correct: 1,
+        explanation: "The correct syntax is 'if [ condition ]; then'. The square brackets are used for test conditions in bash."
+      },
+      {
+        question: "Which operator is used for 'greater than' in bash numeric comparisons?",
+        options: [
+          ">",
+          ">=",
+          "-gt",
+          "greater"
+        ],
+        correct: 2,
+        explanation: "Use '-gt' for 'greater than' in bash numeric comparisons. The '>' symbol is used for output redirection."
+      },
+      {
+        question: "How do you create a for loop that counts from 1 to 5 in bash?",
+        options: [
+          "for i in 1..5",
+          "for i in {1..5}",
+          "for i = 1 to 5",
+          "for i in range(1,5)"
+        ],
+        correct: 1,
+        explanation: "Use 'for i in {1..5}' to create a range from 1 to 5. The curly braces create a sequence expansion."
+      },
+      {
+        question: "What is the correct way to define a function in bash?",
+        options: [
+          "function name() {",
+          "def name():",
+          "function name {",
+          "func name() {"
+        ],
+        correct: 0,
+        explanation: "The correct syntax is 'function name() {' or simply 'name() {'. Both are valid ways to define functions in bash."
+      },
+      {
+        question: "How do you return a value from a bash function?",
+        options: [
+          "return value",
+          "echo value",
+          "output value",
+          "print value"
+        ],
+        correct: 1,
+        explanation: "Use 'echo value' to return a value from a bash function. The calling code can capture this using command substitution: result=$(function_name)."
+      },
+      {
+        question: "What does the 'local' keyword do in bash functions?",
+        options: [
+          "Makes variables global",
+          "Makes variables local to the function",
+          "Creates a new variable",
+          "Deletes a variable"
+        ],
+        correct: 1,
+        explanation: "The 'local' keyword makes variables local to the function, preventing them from interfering with global variables of the same name."
+      },
+      {
+        question: "How do you check if a file exists in bash?",
+        options: [
+          "if [ -e filename ]",
+          "if [ file filename ]",
+          "if [ exists filename ]",
+          "if [ check filename ]"
+        ],
+        correct: 0,
+        explanation: "Use 'if [ -e filename ]' to check if a file exists. The -e flag tests for file existence."
+      },
+      {
+        question: "What is the exit code for a successful command in bash?",
+        options: [
+          "1",
+          "0",
+          "-1",
+          "Success"
+        ],
+        correct: 1,
+        explanation: "Exit code 0 indicates success in bash. Any non-zero exit code indicates an error or failure."
+      },
+      {
+        question: "How do you capture the output of a command in a variable?",
+        options: [
+          "var = command",
+          "var = $(command)",
+          "var = `command`",
+          "Both B and C"
+        ],
+        correct: 3,
+        explanation: "Both 'var = $(command)' and 'var = `command`' work. The $() syntax is preferred as it's more readable and supports nesting."
+      },
+      {
+        question: "What does 'set -e' do in a bash script?",
+        options: [
+          "Enables debugging",
+          "Exits on any error",
+          "Sets environment variables",
+          "Enables verbose output"
+        ],
+        correct: 1,
+        explanation: "'set -e' makes the script exit immediately if any command returns a non-zero exit status (i.e., encounters an error)."
+      },
+      {
+        question: "How do you pass command line arguments to a bash script?",
+        options: [
+          "Using $1, $2, $3, etc.",
+          "Using $arg1, $arg2, $arg3",
+          "Using $argv[1], $argv[2]",
+          "Using $args.1, $args.2"
+        ],
+        correct: 0,
+        explanation: "Use $1, $2, $3, etc. to access command line arguments. $1 is the first argument, $2 is the second, and so on."
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let userAnswers = [];
+
+    function startQuiz() {
+      document.getElementById('quizStart').style.display = 'none';
+      document.getElementById('quizContent').style.display = 'block';
+      loadQuestion();
+    }
+
+    function loadQuestion() {
+      const question = quizQuestions[currentQuestion];
+      const questionContainer = document.getElementById('questionContainer');
+      
+      let optionsHtml = '';
+      question.options.forEach((option, index) => {
+        const checked = userAnswers[currentQuestion] === index ? 'checked' : '';
+        optionsHtml += `
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="question${currentQuestion}" id="option${index}" value="${index}" ${checked}>
+            <label class="form-check-label" for="option${index}">
+              ${option}
+            </label>
+          </div>
+        `;
+      });
+
+      questionContainer.innerHTML = `
+        <div class="question-card">
+          <h3>Question ${currentQuestion + 1}</h3>
+          <p class="question-text">${question.question}</p>
+          <div class="options">
+            ${optionsHtml}
+          </div>
+        </div>
+      `;
+
+      updateNavigation();
+      updateProgress();
+    }
+
+    function updateNavigation() {
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const finishBtn = document.getElementById('finishBtn');
+
+      prevBtn.style.display = currentQuestion === 0 ? 'none' : 'inline-block';
+      
+      if (currentQuestion === quizQuestions.length - 1) {
+        nextBtn.style.display = 'none';
+        finishBtn.style.display = 'inline-block';
+      } else {
+        nextBtn.style.display = 'inline-block';
+        finishBtn.style.display = 'none';
+      }
+    }
+
+    function updateProgress() {
+      const progress = ((currentQuestion + 1) / quizQuestions.length) * 100;
+      document.getElementById('quizProgress').style.width = progress + '%';
+      document.getElementById('questionCounter').textContent = `Question ${currentQuestion + 1} of ${quizQuestions.length}`;
+    }
+
+    function saveAnswer() {
+      const selectedOption = document.querySelector(`input[name="question${currentQuestion}"]:checked`);
+      if (selectedOption) {
+        userAnswers[currentQuestion] = parseInt(selectedOption.value);
+      }
+    }
+
+    function nextQuestion() {
+      saveAnswer();
+      if (currentQuestion < quizQuestions.length - 1) {
+        currentQuestion++;
+        loadQuestion();
+      }
+    }
+
+    function previousQuestion() {
+      saveAnswer();
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        loadQuestion();
+      }
+    }
+
+    function finishQuiz() {
+      saveAnswer();
+      calculateScore();
+      showResults();
+    }
+
+    function calculateScore() {
+      score = 0;
+      userAnswers.forEach((answer, index) => {
+        if (answer === quizQuestions[index].correct) {
+          score++;
+        }
+      });
+    }
+
+    function showResults() {
+      document.getElementById('quizContent').style.display = 'none';
+      document.getElementById('quizResults').style.display = 'block';
+      
+      const percentage = Math.round((score / quizQuestions.length) * 100);
+      const passed = percentage >= 70;
+      
+      const resultsContainer = document.getElementById('quizResults');
+      resultsContainer.innerHTML = `
+        <div class="results-card">
+          <h2><i class="fas fa-trophy text-primary me-2"></i>Quiz Results</h2>
+          
+          <div class="score-display ${passed ? 'passed' : 'failed'}">
+            <div class="score-circle">
+              <span class="score-number">${score}</span>
+              <span class="score-total">/${quizQuestions.length}</span>
+            </div>
+            <div class="score-percentage">${percentage}%</div>
+            <div class="score-status">${passed ? 'PASSED' : 'FAILED'}</div>
+          </div>
+          
+          <div class="results-summary">
+            <h4>Performance Summary</h4>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="stat-item">
+                  <i class="fas fa-check-circle text-success"></i>
+                  <span>Correct Answers: ${score}</span>
+                </div>
+                <div class="stat-item">
+                  <i class="fas fa-times-circle text-danger"></i>
+                  <span>Incorrect Answers: ${quizQuestions.length - score}</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="stat-item">
+                  <i class="fas fa-percentage text-info"></i>
+                  <span>Accuracy: ${percentage}%</span>
+                </div>
+                <div class="stat-item">
+                  <i class="fas fa-target text-warning"></i>
+                  <span>Passing Score: 70%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="action-buttons mt-4">
+            <button class="btn btn-primary me-2" onclick="reviewAnswers()">
+              <i class="fas fa-eye me-2"></i>Review Answers
+            </button>
+            <button class="btn btn-outline-primary me-2" onclick="retakeQuiz()">
+              <i class="fas fa-redo me-2"></i>Retake Quiz
+            </button>
+            <a href="scripts.html" class="btn btn-outline-secondary">
+              <i class="fas fa-book me-2"></i>Review Material
+            </a>
+          </div>
+        </div>
+      `;
+    }
+
+    function reviewAnswers() {
+      const resultsContainer = document.getElementById('quizResults');
+      let reviewHtml = `
+        <div class="results-card">
+          <h2><i class="fas fa-eye text-primary me-2"></i>Answer Review</h2>
+          <div class="mb-3">
+            <button class="btn btn-outline-primary" onclick="showResults()">
+              <i class="fas fa-arrow-left me-2"></i>Back to Results
+            </button>
+          </div>
+      `;
+
+      quizQuestions.forEach((question, index) => {
+        const userAnswer = userAnswers[index];
+        const isCorrect = userAnswer === question.correct;
+        const userAnswerText = userAnswer !== undefined ? question.options[userAnswer] : 'Not answered';
+        const correctAnswerText = question.options[question.correct];
+        
+        reviewHtml += `
+          <div class="review-question ${isCorrect ? 'correct' : 'incorrect'}">
+            <h5>Question ${index + 1}</h5>
+            <p class="question-text">${question.question}</p>
+            
+            <div class="answer-comparison">
+              <div class="user-answer">
+                <strong>Your Answer:</strong> ${userAnswerText}
+                <i class="fas fa-${isCorrect ? 'check text-success' : 'times text-danger'} ms-2"></i>
+              </div>
+              ${!isCorrect ? `<div class="correct-answer"><strong>Correct Answer:</strong> ${correctAnswerText}</div>` : ''}
+            </div>
+            
+            <div class="explanation">
+              <strong>Explanation:</strong> ${question.explanation}
+            </div>
+          </div>
+        `;
+      });
+
+      reviewHtml += '</div>';
+      resultsContainer.innerHTML = reviewHtml;
+    }
+
+    function retakeQuiz() {
+      currentQuestion = 0;
+      score = 0;
+      userAnswers = [];
+      document.getElementById('quizResults').style.display = 'none';
+      document.getElementById('quizStart').style.display = 'block';
+    }
+
+    // Add event listeners for radio button changes
+    document.addEventListener('change', function(e) {
+      if (e.target.type === 'radio') {
+        const questionIndex = parseInt(e.target.name.replace('question', ''));
+        userAnswers[questionIndex] = parseInt(e.target.value);
+      }
+    });
+  </script>
+</body>
+</html> 

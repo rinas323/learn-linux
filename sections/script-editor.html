@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Script Editor - Linux Academy</title>
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .script-editor-container {
+      background: #1e1e1e;
+      border-radius: 8px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    
+    .script-editor-header {
+      background: #2d2d2d;
+      padding: 10px 15px;
+      border-bottom: 1px solid #404040;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .script-editor-title {
+      color: #fff;
+      margin: 0;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    .script-editor-controls {
+      display: flex;
+      gap: 10px;
+    }
+    
+    .script-editor-controls button {
+      font-size: 12px;
+      padding: 4px 8px;
+    }
+    
+    #scriptEditor {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      border: none;
+      padding: 15px;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 14px;
+      line-height: 1.5;
+      min-height: 400px;
+      resize: vertical;
+      outline: none;
+    }
+    
+    .script-output {
+      background: #0d1117;
+      border: 1px solid #30363d;
+      border-radius: 6px;
+      padding: 15px;
+      margin-top: 20px;
+    }
+    
+    .output-header {
+      color: #58a6ff;
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    
+    .script-output pre {
+      background: #161b22;
+      color: #c9d1d9;
+      padding: 10px;
+      border-radius: 4px;
+      margin: 0;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 13px;
+      overflow-x: auto;
+    }
+    
+    .script-error {
+      background: #0d1117;
+      border: 1px solid #f85149;
+      border-radius: 6px;
+      padding: 15px;
+      margin-top: 20px;
+    }
+    
+    .error-header {
+      color: #f85149;
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+    
+    .script-templates {
+      background: #f8f9fa;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .template-item {
+      background: white;
+      border: 1px solid #dee2e6;
+      border-radius: 6px;
+      padding: 15px;
+      margin-bottom: 15px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .template-item:hover {
+      border-color: #007bff;
+      box-shadow: 0 2px 8px rgba(0,123,255,0.1);
+    }
+    
+    .template-title {
+      font-weight: 600;
+      color: #495057;
+      margin-bottom: 8px;
+    }
+    
+    .template-description {
+      color: #6c757d;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    
+    .template-code {
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 4px;
+      padding: 10px;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+      font-size: 12px;
+      color: #495057;
+      overflow-x: auto;
+    }
+    
+    .syntax-highlight {
+      color: #d73a49;
+    }
+    
+    .syntax-highlight.comment {
+      color: #6a737d;
+    }
+    
+    .syntax-highlight.string {
+      color: #032f62;
+    }
+    
+    .syntax-highlight.keyword {
+      color: #d73a49;
+    }
+    
+    .syntax-highlight.function {
+      color: #6f42c1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="../index.html">
+        <i class="fab fa-linux me-2"></i>Linux Academy
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="intro.html">Intro</a></li>
+          <li class="nav-item"><a class="nav-link" href="navigation.html">Navigation</a></li>
+          <li class="nav-item"><a class="nav-link" href="users.html">Users</a></li>
+          <li class="nav-item"><a class="nav-link active" href="scripts.html">Scripts</a></li>
+          <li class="nav-item"><a class="nav-link" href="projects.html">Projects</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Breadcrumb -->
+  <div class="container mt-5 pt-5">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+        <li class="breadcrumb-item"><a href="scripts.html">Shell Scripting</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Script Editor</a></li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- Header Section -->
+  <section class="content-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <h1 class="text-gradient"><i class="fas fa-code text-primary me-2"></i>Interactive Script Editor</h1>
+          <p class="lead">Write, test, and debug bash scripts in real-time with our interactive script editor. Practice your shell scripting skills with instant feedback.</p>
+        </div>
+        <div class="col-lg-4">
+          <div class="sidebar-card">
+            <h4><i class="fas fa-info-circle me-2"></i>Editor Features</h4>
+            <ul class="tips-list">
+              <li>Real-time script execution</li>
+              <li>Syntax highlighting</li>
+              <li>Save and load scripts</li>
+              <li>Error handling</li>
+              <li>Auto-save functionality</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Script Templates Section -->
+  <section class="content-section bg-light">
+    <div class="container">
+      <h2><i class="fas fa-lightbulb text-primary me-2"></i>Script Templates</h2>
+      <p class="lead mb-4">Get started with these pre-built script templates. Click on any template to load it into the editor.</p>
+      
+      <div class="script-templates">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="template-item" onclick="loadTemplate('hello')">
+              <div class="template-title">Hello World Script</div>
+              <div class="template-description">Basic script that displays a greeting message</div>
+              <div class="template-code">#!/bin/bash
+echo "Hello, World!"
+echo "Welcome to Linux Academy!"</div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="template-item" onclick="loadTemplate('variables')">
+              <div class="template-title">Variables Example</div>
+              <div class="template-description">Demonstrates variable declaration and usage</div>
+              <div class="template-code">#!/bin/bash
+NAME="Linux User"
+AGE=25
+echo "Hello, I'm $NAME"
+echo "I'm $AGE years old"</div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="template-item" onclick="loadTemplate('input')">
+              <div class="template-title">User Input</div>
+              <div class="template-description">Script that reads user input and responds</div>
+              <div class="template-code">#!/bin/bash
+echo "What's your name?"
+read name
+echo "Hello, $name! Nice to meet you!"</div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="template-item" onclick="loadTemplate('conditional')">
+              <div class="template-title">Conditional Logic</div>
+              <div class="template-description">Simple if-else statement example</div>
+              <div class="template-code">#!/bin/bash
+echo "Enter a number:"
+read num
+if [ $num -gt 10 ]; then
+    echo "Number is greater than 10"
+else
+    echo "Number is 10 or less"
+fi</div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="template-item" onclick="loadTemplate('loop')">
+              <div class="template-title">Loop Example</div>
+              <div class="template-description">For loop that counts from 1 to 5</div>
+              <div class="template-code">#!/bin/bash
+echo "Counting from 1 to 5:"
+for i in {1..5}; do
+    echo "Count: $i"
+done</div>
+            </div>
+          </div>
+          
+          <div class="col-md-6">
+            <div class="template-item" onclick="loadTemplate('function')">
+              <div class="template-title">Function Definition</div>
+              <div class="template-description">Defines and calls a simple function</div>
+              <div class="template-code">#!/bin/bash
+greet() {
+    local name=$1
+    echo "Hello, $name! Welcome to Linux Academy!"
+}
+
+greet "Student"</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Script Editor Section -->
+  <section class="content-section">
+    <div class="container">
+      <h2><i class="fas fa-edit text-primary me-2"></i>Script Editor</h2>
+      <p class="lead mb-4">Write your bash script below. Use the buttons above the editor to run, save, or load scripts.</p>
+      
+      <div class="script-editor-container">
+        <div class="script-editor-header">
+          <h5 class="script-editor-title">Bash Script Editor</h5>
+          <div class="script-editor-controls">
+            <button class="btn btn-success btn-sm" id="runScript">
+              <i class="fas fa-play me-1"></i>Run Script
+            </button>
+            <button class="btn btn-primary btn-sm" id="saveScript">
+              <i class="fas fa-save me-1"></i>Save
+            </button>
+            <button class="btn btn-info btn-sm" id="loadScript">
+              <i class="fas fa-folder-open me-1"></i>Load
+            </button>
+            <button class="btn btn-secondary btn-sm" onclick="clearEditor()">
+              <i class="fas fa-eraser me-1"></i>Clear
+            </button>
+          </div>
+        </div>
+        
+        <textarea id="scriptEditor" placeholder="#!/bin/bash
+# Write your bash script here
+# Example:
+echo &quot;Hello, World!&quot;
+NAME=&quot;Linux Academy&quot;
+echo &quot;Welcome to $NAME&quot;"></textarea>
+      </div>
+      
+      <div id="scriptOutput"></div>
+    </div>
+  </section>
+
+  <!-- Tips Section -->
+  <section class="content-section bg-light">
+    <div class="container">
+      <h2><i class="fas fa-lightbulb text-primary me-2"></i>Scripting Tips</h2>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="content-card">
+            <h4><i class="fas fa-check-circle text-success me-2"></i>Best Practices</h4>
+            <ul class="feature-list">
+              <li>Always start with <code>#!/bin/bash</code> shebang</li>
+              <li>Use descriptive variable names</li>
+              <li>Add comments to explain complex logic</li>
+              <li>Handle errors gracefully</li>
+              <li>Test your scripts thoroughly</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="col-md-6">
+          <div class="content-card">
+            <h4><i class="fas fa-exclamation-triangle text-warning me-2"></i>Common Mistakes</h4>
+            <ul class="feature-list">
+              <li>Missing shebang line</li>
+              <li>Spaces around equals sign in variables</li>
+              <li>Forgetting to make scripts executable</li>
+              <li>Not quoting variables properly</li>
+              <li>Ignoring error handling</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Next Steps Section -->
+  <section class="content-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="content-card">
+            <h2><i class="fas fa-arrow-right text-primary me-2"></i>Next Steps</h2>
+            <p>Now that you've practiced with the script editor, here's what you can do next:</p>
+            
+            <div class="row mt-4">
+              <div class="col-md-6">
+                <h4><i class="fas fa-question-circle text-info me-2"></i>Test Your Knowledge</h4>
+                <p>Take the shell scripting quiz to reinforce what you've learned.</p>
+                <a href="scripts-quiz.html" class="btn btn-primary">
+                  <i class="fas fa-question-circle me-2"></i>Take Quiz
+                </a>
+              </div>
+              <div class="col-md-6">
+                <h4><i class="fas fa-project-diagram text-success me-2"></i>Apply Your Skills</h4>
+                <p>Move on to the final projects to build real-world applications.</p>
+                <a href="projects.html" class="btn btn-success">
+                  <i class="fas fa-rocket me-2"></i>Start Projects
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-lg-4">
+          <div class="sidebar-card">
+            <h5><i class="fas fa-book me-2"></i>Additional Resources</h5>
+            <ul class="tips-list">
+              <li>Bash Reference Manual</li>
+              <li>Advanced Bash Scripting Guide</li>
+              <li>Shell Scripting Tutorial</li>
+              <li>Practice with real scenarios</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-4">
+    <div class="container">
+      <p>&copy; 2025 Linux Academy. Master Linux fundamentals with our comprehensive guide.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JavaScript -->
+  <script src="../js/script.js"></script>
+  
+  <script>
+    // Template loading functionality
+    const templates = {
+      hello: `#!/bin/bash
+echo "Hello, World!"
+echo "Welcome to Linux Academy!"
+echo "Current date: $(date)"`,
+      
+      variables: `#!/bin/bash
+# Variable declaration and usage
+NAME="Linux User"
+AGE=25
+CITY="Tech City"
+echo "Hello, I'm $NAME"
+echo "I'm $AGE years old"
+echo "I live in $CITY"`,
+      
+      input: `#!/bin/bash
+# Reading user input
+echo "What's your name?"
+read name
+echo "How old are you?"
+read age
+echo "Hello, $name! You are $age years old."`,
+      
+      conditional: `#!/bin/bash
+# Conditional logic example
+echo "Enter a number:"
+read num
+if [ $num -gt 10 ]; then
+    echo "Number is greater than 10"
+elif [ $num -eq 10 ]; then
+    echo "Number equals 10"
+else
+    echo "Number is less than 10"
+fi`,
+      
+      loop: `#!/bin/bash
+# Loop examples
+echo "Counting from 1 to 5:"
+for i in {1..5}; do
+    echo "Count: $i"
+done
+
+echo "Counting down from 5:"
+counter=5
+while [ $counter -gt 0 ]; do
+    echo "Countdown: $counter"
+    ((counter--))
+done`,
+      
+      function: `#!/bin/bash
+# Function definition and usage
+greet() {
+    local name=$1
+    echo "Hello, $name! Welcome to Linux Academy!"
+}
+
+calculate_sum() {
+    local a=$1
+    local b=$2
+    local sum=$((a + b))
+    echo "Sum of $a and $b is: $sum"
+}
+
+# Call functions
+greet "Student"
+calculate_sum 10 20`
+    };
+
+    function loadTemplate(templateName) {
+      const editor = document.getElementById('scriptEditor');
+      if (editor && templates[templateName]) {
+        editor.value = templates[templateName];
+        showNotification(`Template "${templateName}" loaded`, 'success');
+      }
+    }
+
+    function clearEditor() {
+      const editor = document.getElementById('scriptEditor');
+      if (editor) {
+        editor.value = '';
+        document.getElementById('scriptOutput').innerHTML = '';
+        showNotification('Editor cleared', 'success');
+      }
+    }
+
+    // Initialize script editor when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof initializeScriptEditor === 'function') {
+        initializeScriptEditor();
+      }
+    });
+  </script>
+</body>
+</html> 
